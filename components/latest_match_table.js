@@ -3,13 +3,17 @@ import DataTable from 'react-data-table-component';
 
 const columns = [
     {
+        name: 'Rank',
+        cell: row => <Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/>
+    },
+    {
         name: 'Nick',
         selector: row => row.nick,
         sortable: true
     },
     {
         name: 'Agent',
-        cell: row => <Image src={`/resources/agents/${row.character}_icon_32.png`} width="32px" fluid rounded/>
+        cell: row => <Image src={`/resources/agents/${row.character}_icon.png`} width="32px" fluid rounded/>
     },
     {
         name: 'Pos',
