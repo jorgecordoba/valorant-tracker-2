@@ -1,16 +1,10 @@
 import React, { useState, useEffect  } from 'react';
-import { Col, Image, Row, Container, Badge } from 'react-bootstrap';
+import { Col, Image, Row, Container, Badge, Card } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
 import { ArrowRightSquare, ArrowLeftSquare, Display } from 'react-bootstrap-icons';
 
 const columns = [
-    {
-        id: 'Rank',
-        name: 'Rank',
-        minWidth: "40px",
-        cell: row => <Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/>
-    },
     {
         id: 'Nick',
         name: 'Nick',
@@ -19,24 +13,34 @@ const columns = [
         sortable: true
     },
     {
+        id: 'Rank',
+        name: 'Rank',
+        minWidth: "40px",
+        cell: row => <Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/>,
+        compact: true
+    },
+    {
         id: 'Agent',
         name: 'Agt',
         minWidth: "40px",
-        cell: row => <Image src={`/resources/agents/${row.character}_icon.png`} width="32px" fluid rounded/>
+        cell: row => <Image src={`/resources/agents/${row.character}_icon.png`} width="32px" fluid rounded/>,
+        compact: true
     },
     {
         id: 'Pos',
         name: 'Pos',
-        minWidth: "70px",
+        minWidth: "10px",
         selector: row => row.position,
-        sortable: true
+        sortable: true,
+        compact: true
     },
     {
         id: 'Result',
         name: 'Result',
         minWidth: "80px",
         selector: row => `${row.kills}/${row.deaths}/${row.assists}`,
-        sortable: true
+        sortable: true,
+        compact: true
     },
     {
         id: 'KDA',
@@ -44,13 +48,15 @@ const columns = [
         minWidth: "71px",
         selector: row => row.kda_ratio,
         sortable: true,
+        compact: true
     },
     {
         id: 'ADR',
         name: 'ADR',
         minWidth: "71px",
         selector: row => row.adr,
-        sortable: true
+        sortable: true,
+        compact: true
     },    
     {
         id: 'Hs',
@@ -94,8 +100,8 @@ export function LatestMatchTable(props) {
         <Container>
             <Row>
                 <Col>
-                    <Badge bg="light" style={{width:"100%"}}>
-                        <h5 style={{color: "black"}}><ArrowLeftSquare style={{cursor:'pointer', marginRight: "20px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare><span style={{width:"60%", display:"inline-block"}}> {index == 0 ? 'Last Match' : DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> {index == 0 ? "" : <ArrowRightSquare  style={{cursor:'pointer'}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>}</h5>
+                    <Badge bg="dark" style={{width:"100%", borderRadius: 0}}>
+                        <h5 style={{color: "white"}}><ArrowLeftSquare style={{cursor:'pointer', marginRight: "20px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare><span style={{width:"60%", display:"inline-block"}}> {index == 0 ? 'Last Match' : DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> {index == 0 ? "" : <ArrowRightSquare  style={{cursor:'pointer'}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>}</h5>
                     </Badge> 
                 </Col>
             </Row>

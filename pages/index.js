@@ -1,4 +1,4 @@
-import { Row, Col, Container, Tabs, Tab, SSRProvider } from 'react-bootstrap'
+import { Row, Col, Container, Tabs, Tab, SSRProvider, Card } from 'react-bootstrap'
 import { LatestMatchTable } from '../components/latest_match_table'
 import { PlayerStats } from '../components/global_stats';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,6 +32,17 @@ async function getPlayerStats() {
   }
 }
 
+function computePlayerStatsFromAccountStats(playerStats) {
+  let acc = {}
+  for (const item in playerStats) {
+    if (!acc[item.name]) {
+      acc[item.name] = {
+
+      }
+    }
+  }
+}
+
 export async function getServerSideProps(context) {
   
   let matches = await getMatches()
@@ -49,11 +60,13 @@ export default function Home(props) {
     <Tabs>
       <Tab eventKey="main" title="Main Stats">
         <Container fluid>
-          <Row>
-            <Col sm={8}><LatestMatchTable data={props.matches}/></Col>
-            <Col sm={4}><PlayerStats players={props.playerStats} /></Col>
+          <Row>           
+            <Col sm={7}><Card style={{ padding: '12px', marginTop: "20px" }}><LatestMatchTable data={props.matches}/></Card></Col>            
+            <Col sm={5}><Card style={{ padding: '12px', marginTop: "20px" }}><PlayerStats players={props.playerStats} /></Card></Col>
           </Row>
           <Row>
+            <Col><Card style={{ padding: '12px', marginTop: "20px" }}></Card></Col>
+            <Col><Card style={{ padding: '12px', marginTop: "20px" }}></Card></Col>
           </Row>
         </Container>    
       </Tab>
