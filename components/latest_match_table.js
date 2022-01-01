@@ -1,209 +1,115 @@
-import { Image } from 'react-bootstrap';
+import React, { useState, useEffect  } from 'react';
+import { Col, Image, Row, Container, Badge } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
+import { DateTime } from "luxon";
+import { ArrowRightSquare, ArrowLeftSquare, Display } from 'react-bootstrap-icons';
 
 const columns = [
     {
+        id: 'Rank',
         name: 'Rank',
+        minWidth: "40px",
         cell: row => <Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/>
     },
     {
+        id: 'Nick',
         name: 'Nick',
+        minWidth: "112px",
         selector: row => row.nick,
         sortable: true
     },
     {
-        name: 'Agent',
+        id: 'Agent',
+        name: 'Agt',
+        minWidth: "40px",
         cell: row => <Image src={`/resources/agents/${row.character}_icon.png`} width="32px" fluid rounded/>
     },
     {
+        id: 'Pos',
         name: 'Pos',
-        selector: row => row.position
+        minWidth: "70px",
+        selector: row => row.position,
+        sortable: true
     },
     {
+        id: 'Result',
         name: 'Result',
-        selector: row => `${row.kills}/${row.deaths}/${row.assists}`
+        minWidth: "80px",
+        selector: row => `${row.kills}/${row.deaths}/${row.assists}`,
+        sortable: true
     },
     {
+        id: 'KDA',
         name: 'KDA',
-        selector: row => row.kda_ratio
+        minWidth: "71px",
+        selector: row => row.kda_ratio,
+        sortable: true,
     },
     {
+        id: 'ADR',
         name: 'ADR',
+        minWidth: "71px",
         selector: row => row.adr,
+        sortable: true
     },    
     {
+        id: 'Hs',
         name: 'Hs',
-        selector: row => row.head_shots_pct
+        minWidth: "71px",
+        selector: row => parseFloat(row.head_shots_pct).toFixed(2) + "%",
+        sortable: true
     },
     {
+        id: 'Ls',
         name: 'Ls',
-        selector: row => row.leg_shots_pct
+        selector: row => parseFloat(row.leg_shots_pct).toFixed(2) + "%",
+        sortable: true
     },
     {
+        id: 'FK',
         name: 'FK',
+        minWidth: "71px",
         selector: row => row.first_kill_of_team
     },
     {
+        id: 'FD',
         name: 'FD',
+        minWidth: "71px",
         selector: row => row.first_to_die_of_team
     },
     {
+        id: 'FK/FD',
         name: 'FK/FD',
-        selector: row => row.kill_to_die_ration
+        minWidth: "71px",
+        selector: row => row.kill_to_die_ration,
+        sortable: true
     },    
 ];
 
-const data = [
-    {        
-        name: "Chaos",
-        nick: "LGO Chaos",
-        score: "14-14",
-        tier: 16,
-        character: "Jett",
-        kills: 30,
-        deaths: 18,
-        assists: 2,
-        kda_ratio: "1.67",        
-        c_cast_avg: 0.285714,
-        q_cast_avg: 0.107143,
-        e_cast_avg: 0.285714,
-        x_cast: 3,        
-        adr: 175,
-        score: 7942,
-        avg_score_per_round: 284,        
-        head_shots_pct: "23.94",
-        body_shots_pct: "73.24",
-        leg_shots_pct: "2.82",
-        first_kill_of_team: 8,
-        first_to_die_of_team: 11,
-        kill_to_die_ration: "0.73",
-        position: 1
-    },
-    {
-        "player_id": "6453320d-13cd-561f-ab12-cced780740a0",
-        "name": "Weilly",
-        "nick": "LGO Wallux",
-        "tier_name": "Gold 1",
-        "new_tier_name": "Gold 1",
-        "tier": 12,
-        "new_tier": 12,
-        "elo_change": 0,
-        "new_elo": 928,
-        "new_ranking": 28,
-        "team": "Red",
-        "character": "Breach",
-        "kills": 15,
-        "deaths": 22,
-        "assists": 6,
-        "kda_ratio": "0.68",
-        "c_cast": 7,
-        "e_cast": 17,
-        "q_cast": 18,
-        "c_cast_avg": 0.25,
-        "q_cast_avg": 0.642857,
-        "e_cast_avg": 0.607143,
-        "x_cast": 4,
-        "damage_made": 2872,
-        "adr": 103,
-        "score": 4179,
-        "avg_score_per_round": 149,
-        "head_shots": 10,
-        "body_shots": 35,
-        "leg_shots": 9,
-        "head_shots_pct": "18.52",
-        "body_shots_pct": "64.81",
-        "leg_shots_pct": "16.67",
-        "first_kill_of_team": 4,
-        "first_to_die_of_team": 3,
-        "kill_to_die_ration": "1.33",
-        "position": 10
-        },
-        {
-            "player_id": "96bc3794-808f-55bd-9f2b-03b6ec50eeea",
-            "name": "Iskes",
-            "nick": "Iskes",
-            "tier_name": "Platinum 1",
-            "new_tier_name": "Platinum 1",
-            "tier": 15,
-            "new_tier": 15,
-            "elo_change": 0,
-            "new_elo": 1247,
-            "new_ranking": 47,
-            "team": "Red",
-            "character": "Viper",
-            "kills": 16,
-            "deaths": 22,
-            "assists": 6,
-            "kda_ratio": "0.73",
-            "c_cast": 29,
-            "e_cast": 23,
-            "q_cast": 17,
-            "c_cast_avg": 1.03571,
-            "q_cast_avg": 0.607143,
-            "e_cast_avg": 0.821429,
-            "x_cast": 4,
-            "damage_made": 2882,
-            "adr": 103,
-            "score": 4454,
-            "avg_score_per_round": 159,
-            "head_shots": 10,
-            "body_shots": 25,
-            "leg_shots": 2,
-            "head_shots_pct": "27.03",
-            "body_shots_pct": "67.57",
-            "leg_shots_pct": "5.41",
-            "first_kill_of_team": 3,
-            "first_to_die_of_team": 7,
-            "kill_to_die_ration": "0.43",
-            "position": 9
-            },
-            {
-            "player_id": "f9c4d7ab-e6a8-5bec-9d0f-6efa283f0df5",
-            "name": "Souler",
-            "nick": "S0uL3r",
-            "tier_name": "Platinum 1",
-            "new_tier_name": "Platinum 1",
-            "tier": 15,
-            "new_tier": 15,
-            "elo_change": 0,
-            "new_elo": 1259,
-            "new_ranking": 59,
-            "team": "Red",
-            "character": "Chamber",
-            "kills": 20,
-            "deaths": 20,
-            "assists": 4,
-            "kda_ratio": "1.00",
-            "c_cast": 36,
-            "e_cast": 10,
-            "q_cast": 7,
-            "c_cast_avg": 1.28571,
-            "q_cast_avg": 0.25,
-            "e_cast_avg": 0.357143,
-            "x_cast": 2,
-            "damage_made": 4019,
-            "adr": 144,
-            "score": 5953,
-            "avg_score_per_round": 213,
-            "head_shots": 9,
-            "body_shots": 48,
-            "leg_shots": 6,
-            "head_shots_pct": "14.29",
-            "body_shots_pct": "76.19",
-            "leg_shots_pct": "9.52",
-            "first_kill_of_team": 6,
-            "first_to_die_of_team": 3,
-            "kill_to_die_ration": "2.00",
-            "position": 6
-            }    
-]
 
-export function LatestMatchTable() {
+
+export function LatestMatchTable(props) {
+    const [index, setIndex] = useState(0)
     return (
-        <DataTable
-            columns={columns}
-            data={data}
-            theme="dark"
-        />
+        <Container>
+            <Row>
+                <Col>
+                    <Badge bg="light" style={{width:"100%"}}>
+                        <h5 style={{color: "black"}}><ArrowLeftSquare style={{cursor:'pointer', marginRight: "20px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare><span style={{width:"60%", display:"inline-block"}}> {index == 0 ? 'Last Match' : DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> {index == 0 ? "" : <ArrowRightSquare  style={{cursor:'pointer'}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>}</h5>
+                    </Badge> 
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <DataTable
+                        columns={columns}
+                        data={props.data[index].players}
+                        responsive
+                        defaultSortFieldId={'Pos'}
+                        theme="dark"
+                    />
+                </Col>
+            </Row>
+        </Container>
     );
 };
