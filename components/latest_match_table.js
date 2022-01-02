@@ -101,7 +101,7 @@ export function LatestMatchTable(props) {
             <Row>
                 <Col>
                     <Badge bg="dark" style={{width:"100%", borderRadius: 0}}>
-                        <h5 style={{color: "white"}}><ArrowLeftSquare style={{cursor:'pointer', marginRight: "20px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare><span style={{width:"60%", display:"inline-block"}}> {index == 0 ? 'Last Match' : DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> {index == 0 ? "" : <ArrowRightSquare  style={{cursor:'pointer'}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>}</h5>
+                        <h5 style={{color: "white"}}><ArrowLeftSquare style={{cursor:'pointer', marginRight: "20px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare><span style={{width:"60%", display:"inline-block"}}> {DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> {index == 0 ? "" : <ArrowRightSquare  style={{cursor:'pointer'}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>}</h5>
                     </Badge> 
                 </Col>
             </Row>
