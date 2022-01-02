@@ -23,7 +23,7 @@ const columns = [
         id: 'Agent',
         name: 'Agt',
         minWidth: "40px",
-        cell: row => <Image src={`/resources/agents/${row.character}_icon.png`} width="32px" fluid rounded/>,
+        cell: row => <Image src={`/resources/agents/${row.character.toLowerCase()}_icon.png`} width="32px" fluid rounded/>,
         compact: true
     },
     {
