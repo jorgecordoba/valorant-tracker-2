@@ -34,7 +34,7 @@ export function ByPlayerStats(props) {
                     data={props.players}
                     responsive
                     defaultSortFieldId={'POS'}
-                    defaultSortAsc={false}
+                    defaultSortAsc={true}
                     theme="dark"
         />
     );

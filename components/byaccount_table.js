@@ -42,7 +42,7 @@ export function ByAccountStats(props) {
                     columns={columns}
                     data={props.accounts}
                     responsive
-                    defaultSortFieldId={'RANK'}
+                    defaultSortFieldId={'Rank'}
                     defaultSortAsc={false}
                     theme="dark"
         />
