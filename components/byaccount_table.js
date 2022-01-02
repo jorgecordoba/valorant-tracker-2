@@ -7,7 +7,7 @@ const columns = [
         name: 'Rank',
         minWidth: "40px",
         selector: row => row.current_tier,
-        cell: row => <Image src={`/resources/ranks/${row.current_tier}.png`} width="32px" fluid rounded/>,
+        cell: row => (<span><Image src={`/resources/ranks/${row.current_tier}.png`} width="32px" fluid rounded/> <span>{row.current_raking}</span></span>),
         sortable: true
     },
     {
