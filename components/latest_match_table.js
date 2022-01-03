@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from 'react';
 import { Col, Image, Row, Container, Badge, Card } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
-import { ArrowRightSquare, ArrowLeftSquare, Display } from 'react-bootstrap-icons';
+import { ArrowRightSquare, ArrowLeftSquare, ArrowRight} from 'react-bootstrap-icons';
 
 const columns = [
     {
@@ -15,8 +15,12 @@ const columns = [
     {
         id: 'Rank',
         name: 'Rank',
-        minWidth: "40px",
-        cell: row => <Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/>,
+        minWidth: "100px",
+        cell: row => {                                    
+            return (
+                <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.elo_change} <ArrowRight /> {row.new_ranking}</span></span>
+            )
+        },
         compact: true
     },
     {
