@@ -17,7 +17,7 @@ function getData(players) {
 
 export function PlayerFkBar(props) {    
     return (
-            <ResponsiveContainer height={450} width={"90%"}>
+            <ResponsiveContainer height={400} width={"100%"} debounce={1}>
                 <BarChart data={getData(props.players)} stackOffset="sign">                    
                     <XAxis dataKey="player" />
                     <YAxis/>

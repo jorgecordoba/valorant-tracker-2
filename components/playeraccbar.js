@@ -46,7 +46,7 @@ function getData(players) {
 
 export function PlayerAccBar(props) {    
     return (
-            <ResponsiveContainer height={450} width={"90%"}>
+            <ResponsiveContainer height={400} width={"100%"} debounce={1}>
                 <BarChart data={getData(props.players)}>                    
                     <XAxis dataKey="player" />
                     <YAxis/>
