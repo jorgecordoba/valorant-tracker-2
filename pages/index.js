@@ -2,6 +2,8 @@ import { Row, Col, Container, Tabs, Tab, SSRProvider, Card } from 'react-bootstr
 import { LatestMatchTable } from '../components/latest_match_table'
 import { PlayerStats } from '../components/global_stats';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { PlayerAccBar } from '../components/playeraccbar';
+import { PlayerFkBar } from '../components/playerfkbar';
 const axios = require('axios');
 
 async function getMatches() {
@@ -76,8 +78,17 @@ export default function Home(props) {
             <Col sm={5}><Card style={{ padding: '12px', marginTop: "20px" }}><PlayerStats accounts={props.accountStats} players={props.playerStats} /></Card></Col>
           </Row>
           <Row>
-            <Col><Card style={{ padding: '12px', marginTop: "20px" }}></Card></Col>
-            <Col><Card style={{ padding: '12px', marginTop: "20px" }}></Card></Col>
+            <Col><Card style={{ padding: '12px', marginTop: "20px" }}></Card></Col>            
+            <Col>
+              <Card style={{ padding: '12px', marginTop: "20px" }}>
+                <PlayerFkBar players={props.playerStats} />
+              </Card>
+            </Col>
+            <Col>
+              <Card style={{ padding: '12px', marginTop: "20px" }}>
+                <PlayerAccBar players={props.playerStats}/>                  
+              </Card>
+            </Col>
           </Row>
         </Container>    
       </Tab>
