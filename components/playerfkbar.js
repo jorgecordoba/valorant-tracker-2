@@ -17,13 +17,12 @@ function getData(players) {
 
 export function PlayerFkBar(props) {    
     return (
-            <ResponsiveContainer height={400} width={"100%"}>
-                <BarChart data={getData(props.players)} stackOffset="sign">
-                    <CartesianGrid strokeDasharray="3 3" />
+            <ResponsiveContainer height={450} width={"90%"}>
+                <BarChart data={getData(props.players)} stackOffset="sign">                    
                     <XAxis dataKey="player" />
                     <YAxis/>
                     <Tooltip />
-                    <Legend verticalAlign="top" height={36}/>
+                    <Legend verticalAlign="bottom" height={36}/>
                     <Bar dataKey="fk" name="First Kill of Team" stackId={"stack"} fill="#11AACC" />        
                     <Bar dataKey="fd" name="First To Die of Team" stackId={"stack"} fill="#CC3333" />                                            
                 </BarChart>

@@ -46,13 +46,12 @@ function getData(players) {
 
 export function PlayerAccBar(props) {    
     return (
-            <ResponsiveContainer height={400} width={"100%"}>
-                <BarChart data={getData(props.players)}>
-                    <CartesianGrid strokeDasharray="3 3" />
+            <ResponsiveContainer height={450} width={"90%"}>
+                <BarChart data={getData(props.players)}>                    
                     <XAxis dataKey="player" />
                     <YAxis/>
                     <Tooltip />
-                    <Legend verticalAlign="top" height={36}/>
+                    <Legend verticalAlign="bottom" height={36}/>
                     <Bar dataKey="ls" unit="%" name="Leg Shots" stackId={"stack"} fill="#EE8888" />        
                     <Bar dataKey="bs" unit="%"name="Body Shots" stackId={"stack"} fill="#8888FF" />                        
                     <Bar dataKey="hs" unit="%"name="Head Shots" stackId={"stack"} fill="#88DD88" />                        
