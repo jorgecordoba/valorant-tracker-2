@@ -4,6 +4,7 @@ import { PlayerStats } from '../components/global_stats';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { PlayerAccBar } from '../components/playeraccbar';
 import { PlayerFkBar } from '../components/playerfkbar';
+import { AllPlayersEloChart } from '../components/allplayers_elochart';
 const axios = require('axios');
 
 async function getMatches() {
@@ -70,6 +71,9 @@ export default function Home(props) {
 
   return (
     <SSRProvider>
+    <Container fluid>
+      <Row><Col><div style={{display:'flex', justifyContent:'center', alignItems: 'center', marginTop: '10px'}}><h3>Valorant Tracker</h3></div> </Col></Row>
+      <Row><Col>
     <Tabs>
       <Tab eventKey="main" title="Main Stats">
         <Container fluid>
@@ -78,7 +82,9 @@ export default function Home(props) {
             <Col sm={5}><Card style={{ padding: '12px', marginTop: "20px" }}><PlayerStats accounts={props.accountStats} players={props.playerStats} /></Card></Col>
           </Row>
           <Row>
-            <Col><Card style={{ padding: '12px', marginTop: "20px" }}></Card></Col>            
+            <Col><Card style={{ padding: '12px', marginTop: "20px" }}>
+              <AllPlayersEloChart />
+              </Card></Col>            
             <Col>
               <Card style={{ padding: '12px', marginTop: "20px" }}>
                 <PlayerFkBar players={props.playerStats} />
@@ -93,6 +99,9 @@ export default function Home(props) {
         </Container>    
       </Tab>
     </Tabs>
+    </Col>
+    </Row>
+    </Container>
     </SSRProvider>
   )
 }

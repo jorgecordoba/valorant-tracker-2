@@ -18,7 +18,7 @@ const columns = [
         minWidth: "100px",
         cell: row => {                                    
             return (
-                <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.elo_change} <ArrowRight /> {row.new_ranking}</span></span>
+                <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <ArrowRight /> {row.new_ranking}</span></span>
             )
         },
         compact: true
@@ -101,7 +101,7 @@ const columns = [
 export function LatestMatchTable(props) {
     const [index, setIndex] = useState(0)
     return (
-        <Container>
+        <Container fluid>
             <Row>
                 <Col>
                     <Badge bg="dark" style={{width:"100%", borderRadius: 0}}>
