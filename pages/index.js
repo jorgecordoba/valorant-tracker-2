@@ -9,7 +9,7 @@ const axios = require('axios');
 
 async function getMatches() {
   try {
-      const response = await axios.get("http://vanaheim.hopto.org:4000/matches");
+      const response = await axios.get("http://despechis.com:4000/matches");
       return response.data   
   }
   catch (error) {
@@ -19,12 +19,12 @@ async function getMatches() {
 
 async function getAccountStats() {
   try {
-    let players = await axios.get("http://vanaheim.hopto.org:4000/player");
+    let players = await axios.get("http://despechis.com:4000/player");
     let player_data = []
 
     for (const item of players.data) {
-      let entry = await axios.get(`http://vanaheim.hopto.org:4000/account/${item.puuid}`)
-      let stats = await axios.get(`http://vanaheim.hopto.org:4000/account/${item.puuid}/stats`)
+      let entry = await axios.get(`http://despechis.com:4000/account/${item.puuid}`)
+      let stats = await axios.get(`http://despechis.com:4000/account/${item.puuid}/stats`)
       entry.data.stats = stats.data
       player_data.push(entry.data)
     }
@@ -37,7 +37,7 @@ async function getAccountStats() {
 
 async function getPlayerStats() {
   try {
-    let players = await axios.get("http://vanaheim.hopto.org:4000/player");
+    let players = await axios.get("http://despechis.com:4000/player");
     let player_data = []
 
     let data = players.data
@@ -45,7 +45,7 @@ async function getPlayerStats() {
     data = data.filter((v,i,a)=>a.findIndex(t=>(t.name===v.name))===i)
 
     for (const item of data) {      
-      let stats = await axios.get(`http://vanaheim.hopto.org:4000/player/${item.name}/stats`)      
+      let stats = await axios.get(`http://despechis.com:4000/player/${item.name}/stats`)      
       stats.data.name = item.name
       player_data.push(stats.data)
     }
@@ -56,14 +56,26 @@ async function getPlayerStats() {
   }
 }
 
+async function getPerDayStats() {
+  try {
+    let perday = await axios.get("http://despechis.com:4000/account/perday");        
+    
+    return perday.data
+  }
+  catch (error) {
+    console.log("There's an error " + error)
+  }
+}
+
 export async function getServerSideProps(context) {
   
   let matches = await getMatches()
   let accountStats = await getAccountStats()
-  let playerStats = await getPlayerStats()  
+  let playerStats = await getPlayerStats() 
+  let perday = await getPerDayStats() 
 
   return {
-    props: { matches, accountStats, playerStats }, // will be passed to the page component as props
+    props: { matches, accountStats, playerStats, perday }, // will be passed to the page component as props
   }
 }
 
@@ -104,7 +116,7 @@ export default function Home(props) {
             <Row>
             <Col lg={6}>
                 <Card style={{ padding: '12px', marginTop: "20px" }}>
-                  <AllPlayersEloChart />
+                  <AllPlayersEloChart data={props.perday.elo} nicks={props.perday.nicks} />
                 </Card>
               </Col>            
               <Col lg={6}>
