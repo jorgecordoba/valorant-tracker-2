@@ -13,7 +13,8 @@ export function AllPlayersEloChart(props) {
     }
 
     return (
-        <LineChart width={730} height={250} data={data.elo}
+        <ResponsiveContainer width='100%' height={350}>
+        <LineChart height={350} data={data.elo}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
@@ -21,6 +22,7 @@ export function AllPlayersEloChart(props) {
             <Tooltip />
             <Legend />            
             {lines}            
-    </LineChart>
+        </LineChart>
+    </ResponsiveContainer>
     );
 };

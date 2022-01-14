@@ -100,13 +100,17 @@ const columns = [
 
 export function LatestMatchTable(props) {
     const [index, setIndex] = useState(0)
-    return (
-        <Container fluid>
+    return (      
+        <React.Fragment>
             <Row>
-                <Col>
-                    <Badge bg="dark" style={{width:"100%", borderRadius: 0}}>
-                        <h5 style={{color: "white"}}><ArrowLeftSquare style={{cursor:'pointer', marginRight: "20px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare><span style={{width:"60%", display:"inline-block"}}> {DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - {`${props.data[index].map}`} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> {index == 0 ? "" : <ArrowRightSquare  style={{cursor:'pointer'}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>}</h5>
-                    </Badge> 
+                <Col>                                        
+                        <h5 style={{color: "white"}}>
+                            <div style={{display: "flex", justifyContent: "space-around", backgroundColor: "black"}}>
+                                <ArrowLeftSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare>
+                                <span style={{display:"inline-block"}}> {DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - {`${props.data[index].map}`} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> 
+                                <ArrowRightSquare  style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>
+                            </div> 
+                        </h5>                    
                 </Col>
             </Row>
             <Row>
@@ -119,7 +123,7 @@ export function LatestMatchTable(props) {
                         theme="dark"
                     />
                 </Col>
-            </Row>
-        </Container>
+            </Row>      
+        </React.Fragment>
     );
 };

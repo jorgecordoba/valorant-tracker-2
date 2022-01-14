@@ -40,13 +40,13 @@ function getData(players) {
             bs: parseInt(entry.global.body_shots_pct)
         }
         result.push(playerHs)
-    }
-    return result
+    }    
+    return result.sort((a, b) => b.hs - a.hs);
 }
 
 export function PlayerAccBar(props) {    
     return (
-            <ResponsiveContainer height={400} width={"100%"} debounce={1}>
+            <ResponsiveContainer height={300} width={"100%"} debounce={1}>
                 <BarChart data={getData(props.players)}>                    
                     <XAxis dataKey="player" />
                     <YAxis/>

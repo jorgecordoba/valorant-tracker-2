@@ -69,39 +69,54 @@ export async function getServerSideProps(context) {
 
 export default function Home(props) {
 
-  return (
-    <SSRProvider>
+  return (    
     <Container fluid>
       <Row><Col><div style={{display:'flex', justifyContent:'center', alignItems: 'center', marginTop: '10px'}}><h3>Valorant Tracker</h3></div> </Col></Row>
-      <Row><Col>
-    <Tabs>
-      <Tab eventKey="main" title="Main Stats">
-        <Container fluid>
-          <Row>           
-            <Col sm={7}><Card style={{ padding: '12px', marginTop: "20px" }}><LatestMatchTable data={props.matches}/></Card></Col>            
-            <Col sm={5}><Card style={{ padding: '12px', marginTop: "20px" }}><PlayerStats accounts={props.accountStats} players={props.playerStats} /></Card></Col>
-          </Row>
-          <Row>
-            <Col><Card style={{ padding: '12px', marginTop: "20px" }}>
-              <AllPlayersEloChart />
-              </Card></Col>            
-            <Col>
-              <Card style={{ padding: '12px', marginTop: "20px" }}>
-                <PlayerFkBar players={props.playerStats} />
-              </Card>
-            </Col>
-            <Col>
-              <Card style={{ padding: '12px', marginTop: "20px" }}>
-                <PlayerAccBar players={props.playerStats}/>                  
-              </Card>
-            </Col>
-          </Row>
-        </Container>    
-      </Tab>
-    </Tabs>
-    </Col>
+      <Row>
+        <Col>
+          <Tabs>
+            <Tab eventKey="main" title="Main Stats">        
+              <Row>           
+                <Col lg={7}>
+                  <Row>
+                    <Col>
+                      <Card style={{ padding: '12px', marginTop: "20px", height: "360px" }}>
+                        <LatestMatchTable data={props.matches}/>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Card style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
+                        <PlayerAccBar players={props.playerStats}/>                                
+                      </Card>
+                    </Col>
+                  </Row>
+                </Col>  
+                <Col lg={5}>
+                  <Card style={{ padding: '12px', marginTop: "20px", height: "700px"}}>
+                    <PlayerStats accounts={props.accountStats} players={props.playerStats} />
+                  </Card>              
+                </Col>                      
+              </Row>                                                        
+          </Tab>
+          <Tab eventKey="graphs" title="Graphs">
+            <Row>
+            <Col lg={6}>
+                <Card style={{ padding: '12px', marginTop: "20px" }}>
+                  <AllPlayersEloChart />
+                </Card>
+              </Col>            
+              <Col lg={6}>
+                <Card style={{ padding: '12px', marginTop: "20px" }}>
+                    <PlayerFkBar players={props.playerStats} />
+                </Card>
+              </Col>
+            </Row>                                    
+          </Tab>
+        </Tabs>
+      </Col>
     </Row>
-    </Container>
-    </SSRProvider>
+    </Container>    
   )
 }
