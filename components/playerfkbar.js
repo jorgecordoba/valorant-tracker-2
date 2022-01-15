@@ -11,7 +11,6 @@ function getData(players) {
         }
         result.push(playerHs)
     }
-    console.log(result)
     return result
 }
 

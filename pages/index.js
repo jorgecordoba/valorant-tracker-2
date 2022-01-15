@@ -4,7 +4,7 @@ import { PlayerStats } from '../components/global_stats';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { PlayerAccBar } from '../components/playeraccbar';
 import { PlayerFkBar } from '../components/playerfkbar';
-import { AllPlayersEloChart } from '../components/allplayers_elochart';
+import { AllPlayersEvolutionChart } from '../components/allplayers_evochart';
 const axios = require('axios');
 
 async function getMatches() {
@@ -82,6 +82,7 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
 
   return (    
+    <SSRProvider>
     <Container fluid>
       <Row><Col><div style={{display:'flex', justifyContent:'center', alignItems: 'center', marginTop: '10px'}}><h3>Valorant Tracker</h3></div> </Col></Row>
       <Row>
@@ -115,20 +116,33 @@ export default function Home(props) {
           <Tab eventKey="graphs" title="Graphs">
             <Row>
             <Col lg={6}>
-                <Card style={{ padding: '12px', marginTop: "20px" }}>
-                  <AllPlayersEloChart data={props.perday.elo} nicks={props.perday.nicks} />
+                <Card style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
+                  <AllPlayersEvolutionChart data={props.perday.elo} nicks={props.perday.nicks} title="Elo Evolution" />
                 </Card>
               </Col>            
               <Col lg={6}>
                 <Card style={{ padding: '12px', marginTop: "20px" }}>
-                    <PlayerFkBar players={props.playerStats} />
+                <AllPlayersEvolutionChart data={props.perday.kda} nicks={props.perday.nicks} title="KDA Evolution" rollingWindow={1} />
                 </Card>
               </Col>
-            </Row>                                    
+            </Row>  
+            <Row>
+            <Col lg={6}>
+                <Card style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
+                  <AllPlayersEvolutionChart data={props.perday.hs} nicks={props.perday.nicks} title="Headshot Evolution" rollingWindow={1} />
+                </Card>
+              </Col>            
+              <Col lg={6}>
+                <Card style={{ padding: '12px', marginTop: "20px" }}>
+                <AllPlayersEvolutionChart data={props.perday.adr} nicks={props.perday.nicks} title="ADR Evolution" rollingWindow={1} />
+                </Card>
+              </Col>
+            </Row>                                  
           </Tab>
         </Tabs>
       </Col>
     </Row>
-    </Container>    
+    </Container> 
+    </SSRProvider>   
   )
 }

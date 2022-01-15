@@ -1,31 +1,61 @@
 import 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
 
-export const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'bottom',
-      },
-      title: {
-        display: true,
-        text: 'Elo evolution',
-      },
-    },
-  };
+function computRollingAverage(data, windowSize) {
+  let currIx = 0;
+  while (currIx < data.length) {
+    const start = currIx - windowSize
+    const end = currIx + windowSize    
+    for (var prop in data[currIx]) {      
+      if (prop != 'match_date') {
+        let acc = 0
+        let computed = 0;
+        for (var i = start; i <= end; i++) {
+          if (i >= 0 && i < data.length && data[i][prop]) {     
+            acc = acc + data[i][prop]
+            computed++
+          }
+        }
+        data[currIx][prop] = acc / computed        
+      }
+    }
+    currIx++
+  }
+  return data
+}
 
-export function AllPlayersEloChart(props) {
+export function AllPlayersEvolutionChart(props) {
     let data = {
         labes: Object.keys(props.nicks),
         datasets: []
     }
+
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,                
+      plugins: {
+        legend: {
+          position: 'bottom',
+        },
+        title: {
+          display: true,
+          text: props.title,
+        },
+      },
+    };
+
+    console.log('lets go¡')
+
+    if (props.rollingWindow) {
+      computRollingAverage(props.data, props.rollingWindow)
+    }
     
     for (var entry in props.nicks) {
         var randomColor = Math.floor(Math.random()*16777215).toString(16);
-        console.log(entry)
         data.datasets.push( {
             label: props.nicks[entry].nick,
             borderColor: props.nicks[entry].color ? props.nicks[entry].color : `#${randomColor}`,
+            backgroundColor: props.nicks[entry].color ? props.nicks[entry].color : `#${randomColor}`,
             cubicInterpolationMode: 'monotone',       
             lineTension: 0.1,     
             borderDash: [],
@@ -42,7 +72,7 @@ export function AllPlayersEloChart(props) {
             pointHitRadius: 10,
             spanGaps: true,
             data: props.data,
-            hidden: !props.nicks[entry].main,
+            hidden: !props.nicks[entry].main,            
             parsing: {
                 yAxisKey: entry,
                 xAxisKey: 'match_date'
@@ -50,8 +80,8 @@ export function AllPlayersEloChart(props) {
         })
     }    
 
-    return (        
+    return (              
         <Line options={options} data={data}>      
-        </Line>    
+        </Line>            
     );
 };
