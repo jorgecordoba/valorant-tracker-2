@@ -104,6 +104,11 @@ export default function Home(props) {
                         <PlayerAccBar players={props.playerStats}/>                                
                       </Card>
                     </Col>
+                    <Col>
+                      <Card style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
+                        <PlayerFkBar players={props.playerStats}/>                                
+                      </Card>
+                    </Col>
                   </Row>
                 </Col>  
                 <Col lg={5}>
