@@ -7,9 +7,30 @@ import { PlayerFkBar } from '../components/playerfkbar';
 import { AllPlayersEvolutionChart } from '../components/allplayers_evochart';
 const axios = require('axios');
 
-async function getMatches() {
-  try {
-      const response = await axios.get("http://despechis.com:4000/matches");
+function composeDateQuery(from, to) {
+  let fromQuery = ""
+  let toQuery = ""      
+  if (from) {
+    fromQuery = `from=${from}`
+  }
+  if (to) {
+    toQuery = `to=${to}`
+  }
+
+  let queryString = ""
+  if (from && to) {
+    queryString = `?${fromQuery}&${toQuery}`
+  } 
+  else if (from || to) {
+    queryString = `?${fromQuery}${toQuery}`
+  }  
+  return queryString
+}
+
+async function getMatches(from, to) {
+  try {      
+      const url = `http://despechis.com:4000/matches${composeDateQuery(from, to)}`      
+      const response = await axios.get(url);      
       return response.data   
   }
   catch (error) {
@@ -17,17 +38,18 @@ async function getMatches() {
   }
 }
 
-async function getAccountStats() {
-  try {
-    let players = await axios.get("http://despechis.com:4000/player");
+async function getAccountStats(from, to) {
+  try {    
+
+    let players = await axios.get(`http://despechis.com:4000/player${composeDateQuery(from, to)}`);
     let player_data = []
 
     for (const item of players.data) {
-      let entry = await axios.get(`http://despechis.com:4000/account/${item.puuid}`)
-      let stats = await axios.get(`http://despechis.com:4000/account/${item.puuid}/stats`)
+      let entry = await axios.get(`http://despechis.com:4000/account/${item.puuid}${composeDateQuery(from, to)}`)
+      let stats = await axios.get(`http://despechis.com:4000/account/${item.puuid}/stats${composeDateQuery(from, to)}`)
       entry.data.stats = stats.data
       player_data.push(entry.data)
-    }
+    }    
     return player_data
   }
   catch (error) {
@@ -35,9 +57,9 @@ async function getAccountStats() {
   }
 }
 
-async function getPlayerStats() {
+async function getPlayerStats(from, to) {
   try {
-    let players = await axios.get("http://despechis.com:4000/player");
+    let players = await axios.get(`http://despechis.com:4000/player${composeDateQuery(from, to)}`);
     let player_data = []
 
     let data = players.data
@@ -45,7 +67,7 @@ async function getPlayerStats() {
     data = data.filter((v,i,a)=>a.findIndex(t=>(t.name===v.name))===i)
 
     for (const item of data) {      
-      let stats = await axios.get(`http://despechis.com:4000/player/${item.name}/stats`)      
+      let stats = await axios.get(`http://despechis.com:4000/player/${item.name}/stats${composeDateQuery(from, to)}`)      
       stats.data.name = item.name
       player_data.push(stats.data)
     }
@@ -56,9 +78,9 @@ async function getPlayerStats() {
   }
 }
 
-async function getPerDayStats() {
+async function getPerDayStats(from, to) {
   try {
-    let perday = await axios.get("http://despechis.com:4000/account/perday");        
+    let perday = await axios.get(`http://despechis.com:4000/account/perday${composeDateQuery(from, to)}`);        
     
     return perday.data
   }
@@ -68,11 +90,11 @@ async function getPerDayStats() {
 }
 
 export async function getServerSideProps(context) {
-  
-  let matches = await getMatches()
-  let accountStats = await getAccountStats()
-  let playerStats = await getPlayerStats() 
-  let perday = await getPerDayStats() 
+    
+  let matches = await getMatches(context.query.from, context.query.to)  
+  let accountStats = await getAccountStats(context.query.from, context.query.to)  
+  let playerStats = await getPlayerStats(context.query.from, context.query.to)   
+  let perday = await getPerDayStats(context.query.from, context.query.to) 
 
   return {
     props: { matches, accountStats, playerStats, perday }, // will be passed to the page component as props

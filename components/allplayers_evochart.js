@@ -42,9 +42,7 @@ export function AllPlayersEvolutionChart(props) {
           text: props.title,
         },
       },
-    };
-
-    console.log('lets go¡')
+    };    
 
     if (props.rollingWindow) {
       computRollingAverage(props.data, props.rollingWindow)
