@@ -11,9 +11,13 @@ function computRollingAverage(data, windowSize) {
         let acc = 0
         let computed = 0;
         for (var i = start; i <= end; i++) {
-          if (i >= 0 && i < data.length && data[i][prop]) {     
-            acc = acc + data[i][prop]
-            computed++
+          if (i >= 0 && i < data.length && data[i][prop]) {  
+            let value = parseFloat(data[i][prop])
+            
+            if (!isNaN(value)) {
+              acc = acc + value
+              computed++
+            }
           }
         }
         data[currIx][prop] = acc / computed        
