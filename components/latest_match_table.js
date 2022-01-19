@@ -1,8 +1,8 @@
 import React, { useState, useEffect  } from 'react';
-import { Col, Image, Row, Container, Badge, Card } from 'react-bootstrap';
+import { Col, Image, Row } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
-import { ArrowRightSquare, ArrowLeftSquare, ArrowRight} from 'react-bootstrap-icons';
+import { ArrowRightSquare, ArrowLeftSquare, ArrowRight, ArrowRightCircle} from 'react-bootstrap-icons';
 
 const columns = [
     {
@@ -16,9 +16,23 @@ const columns = [
         id: 'Rank',
         name: 'Rank',
         minWidth: "100px",
-        cell: row => {                                    
+        cell: row => {    
+            let result = ""
+            let rankchange = (row.new_tier != row.tier) && row.tier != 0
+
+            if (rankchange) {
+                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "red" : "green"}}><ArrowRightCircle /></span><Image src={`/resources/ranks/${row.new_tier}.png`} width="32px" fluid rounded/></span>
+            }
+            else if (row.tier == 0) {
+                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
+            }
+            else {
+                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <ArrowRight /> {row.new_ranking}</span></span>
+            }
+                        
+
             return (
-                <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <ArrowRight /> {row.new_ranking}</span></span>
+                result
             )
         },
         compact: true
