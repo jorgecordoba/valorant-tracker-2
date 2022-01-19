@@ -115,19 +115,19 @@ export default function Home(props) {
                 <Col lg={7}>
                   <Row>
                     <Col>
-                      <Card style={{ padding: '12px', marginTop: "20px", height: "360px" }}>
+                      <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "360px" }}>
                         <LatestMatchTable data={props.matches}/>
                       </Card>
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                      <Card style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
+                      <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
                         <PlayerAccBar players={props.playerStats}/>                                
                       </Card>
                     </Col>
                     <Col>
-                      <Card style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
+                      <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
                         <PlayerFkBar players={props.playerStats}/>                                
                       </Card>
                     </Col>
@@ -143,24 +143,24 @@ export default function Home(props) {
           <Tab eventKey="graphs" title="Graphs">
             <Row>
             <Col lg={6}>
-                <Card style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
+                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
                   <AllPlayersEvolutionChart data={props.perday.elo} nicks={props.perday.nicks} title="Elo Evolution" />
                 </Card>
               </Col>            
               <Col lg={6}>
-                <Card style={{ padding: '12px', marginTop: "20px" }}>
+                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px" }}>
                 <AllPlayersEvolutionChart data={props.perday.kda} nicks={props.perday.nicks} title="KDA Evolution" rollingWindow={1} />
                 </Card>
               </Col>
             </Row>  
             <Row>
             <Col lg={6}>
-                <Card style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
+                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
                   <AllPlayersEvolutionChart data={props.perday.hs} nicks={props.perday.nicks} title="Headshot Evolution" rollingWindow={1} />
                 </Card>
               </Col>            
               <Col lg={6}>
-                <Card style={{ padding: '12px', marginTop: "20px" }}>
+                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px" }}>
                 <AllPlayersEvolutionChart data={props.perday.adr} nicks={props.perday.nicks} title="ADR Evolution" rollingWindow={1} />
                 </Card>
               </Col>
