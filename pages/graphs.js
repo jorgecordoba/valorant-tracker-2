@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 import { Row, Col, Container, Tabs, Tab, SSRProvider } from 'react-bootstrap'
 import { FaBars } from 'react-icons/fa';
 import SideBar from '../components/sidebar';
-import MainScreen from '../components/main_screen';
+import PlayerGraphs from '../components/player_graphs';
 
-import {getMatches, getAccountStats, getPlayerStats} from '../utils/queries'
+import {getPerDayStats} from '../utils/queries'
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
     
-  let matches = await getMatches(null, null)  
-  let accountStats = await getAccountStats(null, null)  
-  let playerStats = await getPlayerStats(null, null)   
+  let perday = await getPerDayStats(null, null) 
 
   return {
-    props: { matches, accountStats, playerStats }, 
+    props: { perday }, 
     revalidate: 10 // will be passed to the page component as props
   }
 }
@@ -35,7 +33,7 @@ export default function Home(props) {
         </div>
       <Row>
         <Col>
-          <MainScreen matches={props.matches} playerStats={props.playerStats} accountStats={props.accountStats} />
+            <PlayerGraphs perday={props.perday} />                                
       </Col>
     </Row>
     </main>

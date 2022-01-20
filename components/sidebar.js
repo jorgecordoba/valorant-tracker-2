@@ -9,6 +9,7 @@ import {
   SidebarContent,
 } from 'react-pro-sidebar';
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import Link from 'next/link'
 
 const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
   return (
@@ -42,9 +43,9 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
           <MenuItem
             icon={<FaTachometerAlt />}
           >
-            Main Stats
+            <Link href="/">Main Stats</Link>
           </MenuItem>
-          <MenuItem icon={<FaGem />}>Graphs</MenuItem>
+          <MenuItem icon={<FaGem />}><Link href="/graphs">Graphs</Link></MenuItem>
         </Menu>
       </SidebarContent>
 
