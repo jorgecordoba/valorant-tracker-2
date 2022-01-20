@@ -17,18 +17,20 @@ const MainScreen = (props) => {
             </Row>
             <Row>           
                 <Col xxl={7}>
-                <Row>
-                    <Col>
-                    <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
-                        <PlayerAccBar players={props.playerStats}/>                                
-                    </Card>
-                    </Col>
-                    <Col>
-                    <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
-                        <PlayerFkBar players={props.playerStats}/>                                
-                    </Card>
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col>
+                        <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
+                            <PlayerAccBar players={props.playerStats}/>                                
+                        </Card>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
+                                <PlayerFkBar players={props.playerStats}/>                                
+                            </Card>
+                        </Col>
+                    </Row>
                 </Col>  
                 <Col xxl={5}>
                 <Card style={{ padding: '12px', marginTop: "20px", height: "700px"}}>
