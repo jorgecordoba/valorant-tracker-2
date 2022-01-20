@@ -1,10 +1,11 @@
+import React, { useState } from 'react';
 import { Row, Col, Container, Tabs, Tab, SSRProvider, Card } from 'react-bootstrap'
-import { LatestMatchTable } from '../components/latest_match_table'
-import { PlayerStats } from '../components/global_stats';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { PlayerAccBar } from '../components/playeraccbar';
-import { PlayerFkBar } from '../components/playerfkbar';
 import { AllPlayersEvolutionChart } from '../components/allplayers_evochart';
+import { FaBars } from 'react-icons/fa';
+import SideBar from '../components/sidebar';
+import MainScreen from '../components/main_screen';
+import PlayerGraphs from '../components/player_graphs';
+
 const axios = require('axios');
 
 function composeDateQuery(from, to) {
@@ -102,73 +103,33 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home(props) {
+  const [toggled, setToggled] = useState(false);
+
+  const handleToggleSidebar = (value) => {
+    setToggled(value);
+  };
 
   return (    
     <SSRProvider>
-    <Container fluid>
-      <Row><Col><div style={{display:'flex', justifyContent:'center', alignItems: 'center', marginTop: '10px'}}><h3>Valorant Tracker</h3></div> </Col></Row>
+    <Container fluid className="app">
+          <SideBar toggled={toggled} handleToggleSidebar={handleToggleSidebar}/>
+      <main>
+        <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+          <FaBars />
+        </div>
       <Row>
         <Col>
           <Tabs>
             <Tab eventKey="main" title="Main Stats">        
-              <Row>           
-                <Col lg={7}>
-                  <Row>
-                    <Col>
-                      <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "360px" }}>
-                        <LatestMatchTable data={props.matches}/>
-                      </Card>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
-                        <PlayerAccBar players={props.playerStats}/>                                
-                      </Card>
-                    </Col>
-                    <Col>
-                      <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>                            
-                        <PlayerFkBar players={props.playerStats}/>                                
-                      </Card>
-                    </Col>
-                  </Row>
-                </Col>  
-                <Col lg={5}>
-                  <Card style={{ padding: '12px', marginTop: "20px", height: "700px"}}>
-                    <PlayerStats accounts={props.accountStats} players={props.playerStats} />
-                  </Card>              
-                </Col>                      
-              </Row>                                                        
+              <MainScreen matches={props.matches} playerStats={props.playerStats} accountStats={props.accountStats} />
           </Tab>
           <Tab eventKey="graphs" title="Graphs">
-            <Row>
-            <Col lg={6}>
-                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
-                  <AllPlayersEvolutionChart data={props.perday.elo} nicks={props.perday.nicks} title="Elo Evolution" />
-                </Card>
-              </Col>            
-              <Col lg={6}>
-                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px" }}>
-                <AllPlayersEvolutionChart data={props.perday.kda} nicks={props.perday.nicks} title="KDA Evolution" rollingWindow={1} />
-                </Card>
-              </Col>
-            </Row>  
-            <Row>
-            <Col lg={6}>
-                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px"}}>
-                  <AllPlayersEvolutionChart data={props.perday.hs} nicks={props.perday.nicks} title="Headshot Evolution" rollingWindow={1} />
-                </Card>
-              </Col>            
-              <Col lg={6}>
-                <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "400px" }}>
-                <AllPlayersEvolutionChart data={props.perday.adr} nicks={props.perday.nicks} title="ADR Evolution" rollingWindow={1} />
-                </Card>
-              </Col>
-            </Row>                                  
+              <PlayerGraphs perday={props.perday} />                                
           </Tab>
         </Tabs>
       </Col>
     </Row>
+    </main>
     </Container> 
     </SSRProvider>   
   )
