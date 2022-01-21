@@ -40,12 +40,10 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
 
       <SidebarContent>
         <Menu iconShape="circle">
-          <MenuItem
-            icon={<FaTachometerAlt />}
-          >
+          <MenuItem icon={<FaGem />} >
             <Link href="/">Main Stats</Link>
           </MenuItem>
-          <MenuItem icon={<FaGem />}><Link href="/graphs">Graphs</Link></MenuItem>
+          <MenuItem icon={<FaTachometerAlt />}><Link href="/graphs">Graphs</Link></MenuItem>
         </Menu>
       </SidebarContent>
 

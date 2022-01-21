@@ -3,6 +3,7 @@ import { Col, Image, Row } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
 import { ArrowRightSquare, ArrowLeftSquare, ArrowRight, ArrowRightCircle} from 'react-bootstrap-icons';
+import { BsForwardFill } from 'react-icons/bs';
 
 const columns = [
     {
@@ -21,13 +22,13 @@ const columns = [
             let rankchange = (row.new_tier != row.tier) && row.tier != 0
 
             if (rankchange) {
-                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "red" : "green"}}><ArrowRightCircle /></span><Image src={`/resources/ranks/${row.new_tier}.png`} width="32px" fluid rounded/></span>
+                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "red" : "green"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}.png`} width="32px" fluid rounded/></span>
             }
             else if (row.tier == 0) {
                 result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
             }
             else {
-                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <ArrowRight /> {row.new_ranking}</span></span>
+                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <BsForwardFill /> {row.new_ranking}</span></span>
             }
                         
 
