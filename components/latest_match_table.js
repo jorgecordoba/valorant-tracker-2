@@ -22,13 +22,13 @@ const columns = [
             let rankchange = (row.new_tier != row.tier) && row.tier != 0
 
             if (rankchange) {
-                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "red" : "green"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}.png`} width="32px" fluid rounded/></span>
+                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "red" : "green"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}_64.png`} width="32px" fluid rounded/></span>
             }
             else if (row.tier == 0) {
-                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
+                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
             }
             else {
-                result = <span><Image src={`/resources/ranks/${row.tier}.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <BsForwardFill /> {row.new_ranking}</span></span>
+                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <BsForwardFill /> {row.new_ranking}</span></span>
             }
                         
 
@@ -42,7 +42,7 @@ const columns = [
         id: 'Agent',
         name: 'Agt',
         minWidth: "40px",
-        cell: row => <Image src={`/resources/agents/${row.character.toLowerCase()}_icon.png`} width="32px" fluid rounded/>,
+        cell: row => <Image src={`/resources/agents/${row.character.toLowerCase()}_icon_64.png`} width="32px" fluid rounded/>,
         compact: true
     },
     {
