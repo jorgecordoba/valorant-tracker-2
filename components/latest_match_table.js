@@ -5,12 +5,65 @@ import { DateTime } from "luxon";
 import { ArrowRightSquare, ArrowLeftSquare, ArrowRight, ArrowRightCircle} from 'react-bootstrap-icons';
 import { BsForwardFill } from 'react-icons/bs';
 
+const rowStyles = [{
+        when: row => row.team == "Blue" && row.nick == row.character,
+        style: {
+        backgroundColor: '#4A8DC6',
+        color: 'white',
+        opacity: 0.25,
+        '&:hover': {
+            cursor: 'pointer',
+        },
+        }
+    },
+    {
+        when: row => row.team == "Red" && row.nick == row.character,
+        style: {
+        backgroundColor: '#136200',
+        color: 'white',
+        opacity: 0.25,
+        '&:hover': {
+            cursor: 'pointer',
+        },
+        }
+    },
+    {
+        when: row => row.team == "Red" && row.nick != row.character,
+        style: {
+        backgroundColor: '#136200',
+        color: 'white',
+        border: '3px solid',
+        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',        
+        '&:hover': {
+            cursor: 'pointer',
+        },
+        }
+    },   
+    {
+        when: row => row.team == "Blue" && row.nick != row.character,
+        style: {
+        backgroundColor: '#006083',
+        border: '3px solid',
+        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', 
+        color: 'white',        
+        '&:hover': {
+            cursor: 'pointer',
+        },
+        }
+    }, 
+]
+
 const columns = [
     {
         id: 'Nick',
         name: 'Nick',
         minWidth: "112px",
-        selector: row => row.nick,
+        selector: row => { 
+            if (row.nick == row.character) {
+                return row.nick
+            }
+            return (<span><Image src={`/resources/icons/star_icon_32.png`} width="12px" style={{marginRight: '4px', marginTop: '-4px'}}/>{row.nick}</span>)
+        },
         sortable: true
     },
     {
@@ -20,15 +73,17 @@ const columns = [
         cell: row => {    
             let result = ""
             let rankchange = (row.new_tier != row.tier) && row.tier != 0
-
-            if (rankchange) {
-                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "red" : "green"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}_64.png`} width="32px" fluid rounded/></span>
+            if (row.nick == row.character) {
+                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> </span>
+            }
+            else if (rankchange) {
+                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}_64.png`} width="32px" fluid rounded/></span>
             }
             else if (row.tier == 0) {
                 result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
             }
             else {
-                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "red" : "green"}}>{row.new_ranking - row.elo_change} <BsForwardFill /> {row.new_ranking}</span></span>
+                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}>{row.new_ranking - row.elo_change} <BsForwardFill /> {row.new_ranking}</span></span>
             }
                         
 
@@ -136,6 +191,7 @@ export function LatestMatchTable(props) {
                         responsive
                         defaultSortFieldId={'Pos'}
                         theme="dark"
+                        conditionalRowStyles={rowStyles}                        
                     />
                 </Col>
             </Row>      
