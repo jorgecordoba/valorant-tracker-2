@@ -9,10 +9,8 @@ const MainScreen = (props) => {
     return (
         <Fragment>
             <Row>
-                <Col>
-                    <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "600px" }}>
-                        <LatestMatchTable data={props.matches}/>
-                    </Card>
+                <Col>                    
+                    <LatestMatchTable data={props.matches}/>                    
                 </Col>
             </Row>
             <Row>           

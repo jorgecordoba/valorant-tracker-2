@@ -1,9 +1,9 @@
 import React, { useState, useEffect  } from 'react';
-import { Col, Image, Row } from 'react-bootstrap';
+import { Col, Image, Row, Card } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
 import { ArrowRightSquare, ArrowLeftSquare, ArrowRight, ArrowRightCircle} from 'react-bootstrap-icons';
-import { BsForwardFill } from 'react-icons/bs';
+import { BsFillEyeFill, BsForwardFill } from 'react-icons/bs';
 
 const rowStyles = [{
         when: row => row.team == "Blue" && row.nick == row.character,
@@ -166,35 +166,45 @@ const columns = [
     },    
 ];
 
-
+function filterData(data, filter) {
+    if (filter) {
+        return data.filter(p => p.nick != p.character)
+    }
+    return data
+}
 
 export function LatestMatchTable(props) {
     const [index, setIndex] = useState(0)
+    const [filter, setFilter] = useState(false)
+    const data = filterData(props.data[index].players, filter)
     return (      
         <React.Fragment>
-            <Row>
-                <Col>                                        
-                        <h5 style={{color: "white"}}>
-                            <div style={{display: "flex", justifyContent: "space-around", backgroundColor: "black"}}>
-                                <ArrowLeftSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare>
-                                <span style={{display:"inline-block"}}> {DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - {`${props.data[index].map}`} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> 
-                                <ArrowRightSquare  style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>
-                            </div> 
-                        </h5>                    
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <DataTable
-                        columns={columns}
-                        data={props.data[index].players}
-                        responsive
-                        defaultSortFieldId={'Pos'}
-                        theme="dark"
-                        conditionalRowStyles={rowStyles}                        
-                    />
-                </Col>
-            </Row>      
+            <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: `${100 + data.length * 50}px`}}>
+                <Row>
+                    <Col>                                        
+                            <h5 style={{color: "white"}}>
+                                <div style={{display: "flex", justifyContent: "space-around", backgroundColor: "black"}}>
+                                    <ArrowLeftSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare>
+                                    <span style={{display:"inline-block"}}> {DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - {`${props.data[index].map}`} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> 
+                                    <span style={{marginLeft: "10px", marginRight: "10px", cursor:'pointer'}} onClick={() => setFilter(!filter)}> <BsFillEyeFill /> </span>
+                                    <ArrowRightSquare  style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>
+                                </div> 
+                            </h5>                    
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <DataTable
+                            columns={columns}
+                            data={data}
+                            responsive
+                            defaultSortFieldId={'Pos'}
+                            theme="dark"
+                            conditionalRowStyles={rowStyles}                        
+                        />
+                    </Col>
+                </Row>      
+            </Card>
         </React.Fragment>
     );
 };
