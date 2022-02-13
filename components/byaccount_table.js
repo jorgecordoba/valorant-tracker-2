@@ -1,5 +1,8 @@
 import DataTable from 'react-data-table-component';
 import { Image } from 'react-bootstrap';
+var consts = require("../utils/constants")
+
+const cldbase = consts.cloudinary(consts.transformations.icon_32)
 
 const columns = [
     {
@@ -7,7 +10,7 @@ const columns = [
         name: 'Rank',
         minWidth: "40px",
         selector: row => row.current_tier,
-        cell: row => (<span><Image src={`/resources/ranks/${row.current_tier}.png`} width="32px" fluid rounded/> <span>{row.current_raking}</span></span>),
+        cell: row => (<span><Image src={`${cldbase}/ranks/rank_${row.current_tier}`} width="32px" fluid rounded/> <span>{row.current_raking}</span></span>),
         sortable: true
     },
     {

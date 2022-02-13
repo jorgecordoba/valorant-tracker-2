@@ -4,6 +4,9 @@ import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
 import { ArrowRightSquare, ArrowLeftSquare, ArrowRight, ArrowRightCircle} from 'react-bootstrap-icons';
 import { BsFillEyeFill, BsForwardFill } from 'react-icons/bs';
+var consts = require("../utils/constants")
+
+const cldbase = consts.cloudinary(consts.transformations.icon_32)
 
 const rowStyles = [{
         when: row => row.team == "Blue" && row.nick == row.character,
@@ -74,16 +77,16 @@ const columns = [
             let result = ""
             let rankchange = (row.new_tier != row.tier) && row.tier != 0
             if (row.nick == row.character) {
-                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> </span>
+                result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> </span>
             }
             else if (rankchange) {
-                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}_64.png`} width="32px" fluid rounded/></span>
+                result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}_64.png`} width="32px" fluid rounded/></span>
             }
             else if (row.tier == 0) {
-                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
+                result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
             }
             else {
-                result = <span><Image src={`/resources/ranks/${row.tier}_64.png`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}>{row.new_ranking - row.elo_change} <BsForwardFill /> {row.new_ranking}</span></span>
+                result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}>{row.new_ranking - row.elo_change} <BsForwardFill /> {row.new_ranking}</span></span>
             }
                         
 
@@ -97,7 +100,7 @@ const columns = [
         id: 'Agent',
         name: 'Agt',
         minWidth: "40px",
-        cell: row => <Image src={`/resources/agents/${row.character.toLowerCase()}_icon_64.png`} width="32px" fluid rounded/>,
+        cell: row => <Image src={`${cldbase}/agents/icons/${row.character.toLowerCase().replace("/", "")}`} width="32px" fluid rounded/>,
         compact: true
     },
     {
