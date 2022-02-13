@@ -2,6 +2,17 @@ import {composeDateQuery} from '../utils/utils'
 
 const axios = require('axios');
 
+export async function getMatch(match_id) {
+  try {      
+      const url = `http://despechis.com:4000/matches/${match_id}`      
+      const response = await axios.get(url);      
+      return response.data   
+  }
+  catch (error) {
+      console.log("There is an error " + error)
+  }
+}
+
 export async function getMatches(from, to) {
     try {      
         const url = `http://despechis.com:4000/matches${composeDateQuery(from, to)}`      

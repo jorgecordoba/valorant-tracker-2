@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
 import { ArrowRightSquare, ArrowLeftSquare, ArrowRight, ArrowRightCircle} from 'react-bootstrap-icons';
 import { BsFillEyeFill, BsForwardFill } from 'react-icons/bs';
+import Link from 'next/link'
 var consts = require("../utils/constants")
 
 const cldbase = consts.cloudinary(consts.transformations.icon_32)
@@ -188,7 +189,7 @@ export function LatestMatchTable(props) {
                             <h5 style={{color: "white"}}>
                                 <div style={{display: "flex", justifyContent: "space-around", backgroundColor: "black"}}>
                                     <ArrowLeftSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}} href='#' onClick={() => setIndex(index < props.data.length -1 ? index + 1 : index)}>&lt;&lt;</ArrowLeftSquare>
-                                    <span style={{display:"inline-block"}}> {DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - {`${props.data[index].map}`} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</span> 
+                                    <span style={{display:"inline-block"}}><Link href={`/match/${props.data[index].match_id}`}><a>{DateTime.fromISO(props.data[index].match_date).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)} - {`${props.data[index].map}`} - Result: {`${props.data[index].rounds_won} - ${props.data[index].rounds_lost}`}</a></Link></span> 
                                     <span style={{marginLeft: "10px", marginRight: "10px", cursor:'pointer'}} onClick={() => setFilter(!filter)}> <BsFillEyeFill /> </span>
                                     <ArrowRightSquare  style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px"}}  onClick={() => setIndex(index > 0 ? index -1: index)}>&gt;&gt;</ArrowRightSquare>
                                 </div> 

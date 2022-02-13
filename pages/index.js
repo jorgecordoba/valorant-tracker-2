@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Container, Tabs, Tab, SSRProvider } from 'react-bootstrap'
+import { Row, Col, Container, SSRProvider } from 'react-bootstrap'
 import { FaBars } from 'react-icons/fa';
 import SideBar from '../components/sidebar';
 import MainScreen from '../components/main_screen';
