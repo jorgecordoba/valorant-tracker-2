@@ -98,7 +98,8 @@ const columns = [
         name: 'Hs',
         minWidth: "71px",
         selector: row => parseFloat(row.head_shots_pct).toFixed(2) + "%",
-        sortable: true
+        sortable: true,
+        hide: 500
     },    
 ];
 

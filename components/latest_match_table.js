@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from 'react';
 import { Col, Image, Row, Card } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import { DateTime } from "luxon";
-import { ArrowRightSquare, ArrowLeftSquare, ArrowRight, ArrowRightCircle} from 'react-bootstrap-icons';
+import { ArrowRightSquare, ArrowLeftSquare} from 'react-bootstrap-icons';
 import { BsFillEyeFill, BsForwardFill } from 'react-icons/bs';
 import Link from 'next/link'
 var consts = require("../utils/constants")
