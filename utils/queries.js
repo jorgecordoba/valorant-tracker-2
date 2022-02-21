@@ -15,7 +15,7 @@ export async function getMatch(match_id) {
 
 export async function getMatches(from, to) {
     try {      
-        const url = `http://despechis.com:4000/matches${composeDateQuery(from, to)}`      
+        const url = `http://despechis.com:4000/matches${composeDateQuery(from, to)}`  
         const response = await axios.get(url);      
         return response.data   
     }
