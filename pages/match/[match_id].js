@@ -6,17 +6,13 @@ import { FaBars } from 'react-icons/fa';
 import { MatchByTeamTable } from '../../components/red_blue_table';
 import SideBar from '../../components/sidebar';
 import { ArrowRightSquare, ArrowLeftSquare} from 'react-bootstrap-icons';
-import {getMatches, getMatch} from '../../utils/queries'
+import {getMatch, getPreviousMatch, getNextMatch} from '../../utils/queries'
 
 export async function getStaticProps({ params }) {
       
   let match = await getMatch(params.match_id)
-  let from = DateTime.fromISO(match.match_date).plus({ days: -7 }).toISODate()
-  let to = DateTime.fromISO(match.match_date).plus({ days: 7 }).toISODate()
-  let matches = await getMatches(from, to)
-  let index = matches.findIndex(p => p.match_id == params.match_id)
-  let prvMatchId = index > 0 ? matches[index-1].match_id : null
-  let nxtMatchId = index < matches.length -1 ? matches[index+1].match_id : null
+  let prvMatchId = await getPreviousMatch(params.match_id) ?? null
+  let nxtMatchId = await getNextMatch(params.match_id) ?? null
 
   return {
     props: { match, prvMatchId, nxtMatchId }, 

@@ -13,6 +13,28 @@ export async function getMatch(match_id) {
   }
 }
 
+export async function getPreviousMatch(match_id) {
+  try {      
+      const url = `http://despechis.com:4000/matches/${match_id}/previous`      
+      const response = await axios.get(url);      
+      return response.data.match_id  
+  }
+  catch (error) {
+      console.log("There is an error " + error)
+  }
+}
+
+export async function getNextMatch(match_id) {
+  try {      
+      const url = `http://despechis.com:4000/matches/${match_id}/next`      
+      const response = await axios.get(url);      
+      return response.data.match_id  
+  }
+  catch (error) {
+      console.log("There is an error " + error)
+  }
+}
+
 export async function getMatches(from, to) {
     try {      
         const url = `http://despechis.com:4000/matches${composeDateQuery(from, to)}`  
