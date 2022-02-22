@@ -1,13 +1,13 @@
 import 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
 
-function computRollingAverage(data, windowSize) {
+function computRollingAverage(data, windowSize, keyName) {
   let currIx = 0;
   while (currIx < data.length) {
     const start = currIx - windowSize
     const end = currIx + windowSize    
     for (var prop in data[currIx]) {      
-      if (prop != 'match_date') {
+      if (prop != keyName) {
         let acc = 0
         let computed = 0;
         for (var i = start; i <= end; i++) {
@@ -30,7 +30,7 @@ function computRollingAverage(data, windowSize) {
 
 export function AllPlayersEvolutionChart(props) {
     let data = {
-        labes: Object.keys(props.nicks),
+        labels: props.data.map(p => p[props.xKeyName]),
         datasets: []
     }
 
@@ -45,11 +45,11 @@ export function AllPlayersEvolutionChart(props) {
           display: true,
           text: props.title,
         },
-      },
+      }
     };    
 
     if (props.rollingWindow) {
-      computRollingAverage(props.data, props.rollingWindow)
+      computRollingAverage(props.data, props.rollingWindow, props.xKeyName)
     }
     
     for (var entry in props.nicks) {
@@ -73,14 +73,16 @@ export function AllPlayersEvolutionChart(props) {
             pointRadius: 1,
             pointHitRadius: 10,
             spanGaps: true,
-            data: props.data,
-            hidden: !props.nicks[entry].main,            
+            data: props.data.map(p => {return {x: p[props.xKeyName], y: p[entry]}}),
+            hidden: false,
             parsing: {
-                yAxisKey: entry,
-                xAxisKey: 'match_date'
+              xAxisKey: "x",
+              yAxisKey: "y"
             }
         })
-    }    
+    }  
+
+    console.log(JSON.stringify(data, null, 2))
 
     return (              
         <Line options={options} data={data}>      

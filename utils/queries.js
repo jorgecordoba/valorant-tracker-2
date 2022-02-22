@@ -35,6 +35,17 @@ export async function getNextMatch(match_id) {
   }
 }
 
+export async function getPlayerMatchStats(match_id) {
+  try {      
+      const url = `http://despechis.com:4000/matches/${match_id}/stats`      
+      const response = await axios.get(url);      
+      return response.data  
+  }
+  catch (error) {
+      console.log("There is an error " + error)
+  }
+}
+
 export async function getMatches(from, to) {
     try {      
         const url = `http://despechis.com:4000/matches${composeDateQuery(from, to)}`  

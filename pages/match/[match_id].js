@@ -6,16 +6,18 @@ import { FaBars } from 'react-icons/fa';
 import { MatchByTeamTable } from '../../components/red_blue_table';
 import SideBar from '../../components/sidebar';
 import { ArrowRightSquare, ArrowLeftSquare} from 'react-bootstrap-icons';
-import {getMatch, getPreviousMatch, getNextMatch} from '../../utils/queries'
+import {getMatch, getPreviousMatch, getNextMatch, getPlayerMatchStats} from '../../utils/queries'
+import { AllPlayersEvolutionChart } from '../../components/allplayers_evochart';
 
 export async function getStaticProps({ params }) {
       
   let match = await getMatch(params.match_id)
   let prvMatchId = await getPreviousMatch(params.match_id) ?? null
   let nxtMatchId = await getNextMatch(params.match_id) ?? null
+  let stats = await getPlayerMatchStats(params.match_id)
 
   return {
-    props: { match, prvMatchId, nxtMatchId }, 
+    props: { match, prvMatchId, nxtMatchId, stats }, 
     revalidate: 10 // will be passed to the page component as props
   }
 }
@@ -30,6 +32,8 @@ export default function Home(props) {
   const handleToggleSidebar = (value) => {
     setToggled(value);
   };
+
+  console.log(JSON.stringify(props.stats.kda))
 
 
   const playersTeam = props.match.players.find(p => p.nick != p.character).team
@@ -75,6 +79,30 @@ export default function Home(props) {
         </Col>
         <Col>
               <MatchByTeamTable match={props.match} team={enemyTeam} />   
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>    
+              <AllPlayersEvolutionChart data={props.stats.adr} nicks={props.stats.nicks} title="ADR" xKeyName="round" />
+          </Card>
+        </Col>
+        <Col>
+          <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>    
+              <AllPlayersEvolutionChart data={props.stats.kda} nicks={props.stats.nicks} title="KDA" xKeyName="round" />
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>    
+              <AllPlayersEvolutionChart data={props.stats.hs} nicks={props.stats.nicks} title="Headshots" xKeyName="round" />
+          </Card>
+        </Col>
+        <Col>
+          <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: "320px" }}>    
+              <AllPlayersEvolutionChart data={props.stats.ls} nicks={props.stats.nicks} title="Legshots" xKeyName="round" />
+          </Card>
         </Col>
       </Row>
     </main>
