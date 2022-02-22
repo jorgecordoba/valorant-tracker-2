@@ -82,8 +82,6 @@ export function AllPlayersEvolutionChart(props) {
         })
     }  
 
-    console.log(JSON.stringify(data, null, 2))
-
     return (              
         <Line options={options} data={data}>      
         </Line>            

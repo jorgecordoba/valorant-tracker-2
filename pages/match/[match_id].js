@@ -33,9 +33,6 @@ export default function Home(props) {
     setToggled(value);
   };
 
-  console.log(JSON.stringify(props.stats.kda))
-
-
   const playersTeam = props.match.players.find(p => p.nick != p.character).team
   const enemyTeam = playersTeam == "Red" ? "Blue" : "Red"
   const bgcolor = props.match.rounds_won > props.match.rounds_lost ? "#229933" : "#CC2211"
