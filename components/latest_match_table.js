@@ -183,7 +183,7 @@ export function LatestMatchTable(props) {
     const data = filterData(props.data[index].players, filter)
     return (      
         <React.Fragment>
-            <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: `${100 + data.length * 50}px`}}>
+            <Card className='shadow' style={{ padding: '12px', marginTop: "20px", height: `${85 + data.length * 53}px`}}>
                 <Row>
                     <Col>                                        
                             <h5 style={{color: "white"}}>

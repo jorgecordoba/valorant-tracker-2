@@ -9,12 +9,12 @@ import { PlayerStatBlock } from './player_stat_block';
 const MainScreen = (props) => {
     return (
         <Fragment>            
+            <PlayerStatBlock accountStats={props.accountStats} />
             <Row>
                 <Col>                    
                     <LatestMatchTable data={props.matches}/>                    
                 </Col>
-            </Row>
-            <PlayerStatBlock accountStats={props.accountStats} />
+            </Row>            
             <Row>           
                 <Col xxl={3}>
                     <Row>

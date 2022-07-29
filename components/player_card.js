@@ -7,7 +7,7 @@ const cldbase = consts.cloudinary(consts.transformations.none)
 export function PlayerCard(props) {    
     return (
         <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>
-        <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "160px", width: "160px" }}>
+        <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "160px", width: "120px" }}>
             <Row>
             <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder'}}>{props.player.nick}</div>            
             </Row>            
