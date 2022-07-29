@@ -20,6 +20,12 @@ const columns = [
         sortable: true
     },
     {
+        id: 'HS%',
+        name: 'HS%',
+        selector: row => parseFloat(row.stats.global.head_shots_pct).toFixed(2),
+        sortable:true
+    },
+    {
         id: 'KDA',
         name: 'KDA',
         selector: row => parseFloat(row.stats.global.kda_ratio).toFixed(2),

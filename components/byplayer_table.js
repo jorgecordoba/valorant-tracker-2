@@ -24,6 +24,12 @@ const columns = [
         name: 'POS',
         selector: row => parseFloat(row.global.avg_position).toFixed(2),
         sortable:true
+    },
+    {
+        id: 'HS%',
+        name: 'HS%',
+        selector: row => parseFloat(row.global.head_shots_pct).toFixed(2),
+        sortable:true
     }
 ]
 
