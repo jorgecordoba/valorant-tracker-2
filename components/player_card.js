@@ -9,7 +9,7 @@ export function PlayerCard(props) {
         <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>
         <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "160px", width: "120px" }}>
             <Row>
-            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder'}}>{props.player.nick}</div>            
+            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.9em'}}>{props.player.nick}</div>            
             </Row>            
             <Row>
                 <Col fluid>
