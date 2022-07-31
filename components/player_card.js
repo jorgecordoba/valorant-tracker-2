@@ -1,29 +1,53 @@
 import { Row, Col, Card, Image } from 'react-bootstrap'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 var consts = require("../utils/constants")
-import { useEffect,  useState } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 const cldbase = consts.cloudinary(consts.transformations.none)
 
-export function PlayerCard(props) {        
+export function PlayerCard(props) {                
 
-    useEffect(() => {
+    useEffect(() => {        
         // Retreive previous values for this element
         let saved = localStorage.getItem(props.player.nick)
         if (saved) {
             let originalPlayer = JSON.parse(saved)
             if (originalPlayer.current_tier < props.player.current_tier) {
-                toast.success(`${props.player.name} went up from ${originalPlayer.current_tier_name} to ${props.player.current_tier_name}`)
+                toast.success(`${props.player.nick} went up from ${originalPlayer.current_tier_name} to ${props.player.current_tier_name}`, {toastId: props.player.nick, position: "top-center",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,}) 
             }
             else if (originalPlayer.current_tier > props.player.current_tier) {
-                toast.error(`${props.player.name} went down from ${originalPlayer.current_tier_name} to ${props.player.current_tier_name}`)
+                toast.error(`${props.player.nick} went down from ${originalPlayer.current_tier_name} to ${props.player.current_tier_name}`, {toastId: props.player.nick, position: "top-center",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,})
             }
             else if (originalPlayer.current_raking < props.player.current_raking) {
-                toast.success(`${props.player.name} improved his progress on ${props.player.current_tier_name} from ${originalPlayer.current_raking} to ${props.player.current_raking}`)                
+                toast.success(`${props.player.nick} improved his progress on ${props.player.current_tier_name} from ${originalPlayer.current_raking} to ${props.player.current_raking}`, {toastId: props.player.nick, position: "top-center",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,})                
             }
             else if (originalPlayer.current_raking > props.player.current_raking) {
-                toast.error(`${props.player.name} decreased his progress on ${props.player.current_tier_name} from ${originalPlayer.current_raking} to ${props.player.current_raking}`)                
+                toast.error(`${props.player.nick} decreased his progress on ${props.player.current_tier_name} from ${originalPlayer.current_raking} to ${props.player.current_raking}`, {toastId: props.player.nick, position: "top-center",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,})                
             }
         }        
         

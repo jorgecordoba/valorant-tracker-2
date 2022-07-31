@@ -10,7 +10,7 @@ export function PlayerStatBlock(props) {
             <Row>{
                 props.accountStats.map( p => {
                     return (                        
-                        <Col key={p.name}><PlayerCard player={p}></PlayerCard></Col>                                              
+                        <Col key={p.nick}><PlayerCard player={p}></PlayerCard></Col>                                              
                     )
                 })}
             </Row>

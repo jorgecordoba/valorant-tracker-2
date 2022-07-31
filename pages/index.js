@@ -3,6 +3,7 @@ import { Row, Col, Container, SSRProvider } from 'react-bootstrap'
 import { FaBars } from 'react-icons/fa';
 import SideBar from '../components/sidebar';
 import MainScreen from '../components/main_screen';
+import { ToastContainer } from 'react-toastify';
 
 import {getMatches, getAccountStats, getPlayerStats} from '../utils/queries'
 
@@ -27,6 +28,7 @@ export default function Home(props) {
 
   return (    
     <SSRProvider>
+      <ToastContainer />
     <Container fluid className="app">
           <SideBar toggled={toggled} handleToggleSidebar={handleToggleSidebar}/>
       <main>

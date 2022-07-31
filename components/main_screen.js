@@ -5,24 +5,11 @@ import { PlayerFkBar } from '../components/playerfkbar';
 import { Row, Col, Card } from 'react-bootstrap'
 import { Fragment } from 'react';
 import { PlayerStatBlock } from './player_stat_block';
-import { ToastContainer } from 'react-toastify';
+
 
 const MainScreen = (props) => {
     return (
-        <Fragment>   
-            <ToastContainer
-                position="top-right"
-                autoClose={8000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                />
-                {/* Same as */}
-            <ToastContainer />             
+        <Fragment>              
             <PlayerStatBlock accountStats={props.accountStats} />
             <Row>
                 <Col>                    
