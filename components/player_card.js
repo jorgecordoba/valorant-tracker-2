@@ -1,12 +1,37 @@
 import { Row, Col, Card, Image } from 'react-bootstrap'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 var consts = require("../utils/constants")
+import { useEffect,  useState } from 'react';
+import { toast } from 'react-toastify';
 
 const cldbase = consts.cloudinary(consts.transformations.none)
 
-export function PlayerCard(props) {    
-    return (
-        <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>
+export function PlayerCard(props) {        
+
+    useEffect(() => {
+        // Retreive previous values for this element
+        let saved = localStorage.getItem(props.player.nick)
+        if (saved) {
+            let originalPlayer = JSON.parse(saved)
+            if (originalPlayer.current_tier < props.player.current_tier) {
+                toast.success(`${props.player.name} went up from ${originalPlayer.current_tier_name} to ${props.player.current_tier_name}`)
+            }
+            else if (originalPlayer.current_tier > props.player.current_tier) {
+                toast.error(`${props.player.name} went down from ${originalPlayer.current_tier_name} to ${props.player.current_tier_name}`)
+            }
+            else if (originalPlayer.current_raking < props.player.current_raking) {
+                toast.success(`${props.player.name} improved his progress on ${props.player.current_tier_name} from ${originalPlayer.current_raking} to ${props.player.current_raking}`)                
+            }
+            else if (originalPlayer.current_raking > props.player.current_raking) {
+                toast.error(`${props.player.name} decreased his progress on ${props.player.current_tier_name} from ${originalPlayer.current_raking} to ${props.player.current_raking}`)                
+            }
+        }        
+        
+        localStorage.setItem(props.player.nick, JSON.stringify(props.player))        
+      }, []); // <-- empty array means 'run once'
+
+    return (        
+        <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>        
         <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "160px", width: "120px" }}>
             <Row>
             <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.9em'}}>{props.player.nick}</div>            

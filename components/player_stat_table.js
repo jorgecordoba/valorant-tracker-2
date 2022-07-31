@@ -39,6 +39,8 @@ function getData(players) {
 }
 
 export function PlayerStatsTable(props) {    
+    
+    
     return (
             <DataTable
                             columns={columns}

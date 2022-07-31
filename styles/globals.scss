@@ -9,8 +9,13 @@ $icon-size: 35px;
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import '~react-pro-sidebar/dist/scss/styles.scss';
 
-:rooç {
+:root {
   --bs-body-bg: #f0f0f0;
+  --toastify-toast-width: "80%";
+}
+
+.Toastify__toast-container--top-right {
+  width: '100%';
 }
 
 html,
