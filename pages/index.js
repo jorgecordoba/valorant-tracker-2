@@ -15,7 +15,7 @@ export async function getStaticProps(context) {
 
   return {
     props: { matches, accountStats, playerStats }, 
-    revalidate: 10 // will be passed to the page component as props
+    revalidate: 1 // will be passed to the page component as props
   }
 }
 

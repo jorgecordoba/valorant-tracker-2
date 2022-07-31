@@ -81,7 +81,7 @@ const columns = [
                 result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> </span>
             }
             else if (rankchange) {
-                result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}><BsForwardFill /></span><Image src={`/resources/ranks/${row.new_tier}_64.png`} width="32px" fluid rounded/></span>
+                result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', marginRight: '4px', fontSize: 'large', color: row.elo_change < 0 ? "#FF0000" : "#31FF00"}}><BsForwardFill /></span><Image src={`${cldbase}/ranks/rank_${row.new_tier}`} width="32px" fluid rounded/></span>
             }
             else if (row.tier == 0) {
                 result = <span><Image src={`${cldbase}/ranks/rank_${row.tier}`} width="32px" fluid rounded/> <span style={{marginLeft: '4px', color: "white"}}> {'Ranking'} </span></span>
