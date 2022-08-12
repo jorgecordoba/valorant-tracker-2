@@ -3,6 +3,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 var consts = require("../utils/constants")
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { BoxArrowUpRight} from 'react-bootstrap-icons';
 
 const cldbase = consts.cloudinary(consts.transformations.none)
 
@@ -56,9 +57,9 @@ export function PlayerCard(props) {
 
     return (        
         <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>        
-        <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "160px", width: "120px" }}>
+        <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "185px", width: "126px" }}>
             <Row>
-            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.9em'}}>{props.player.nick}</div>            
+            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.9em'}}>{props.player.nick} </div>            
             </Row>            
             <Row>
                 <Col fluid>
@@ -77,7 +78,8 @@ export function PlayerCard(props) {
                 <span>{props.player.stats.global.adr}</span>
                 <span>{props.player.stats.global.head_shots_pct}</span>
                 </div>            
-            </Row>                        
+            </Row>    
+            <Row><Col><a href={`https://tracker.gg/valorant/profile/riot/${props.player.current_nick}%23${props.player.current_tag}/overview`} target="_blank"><div style={{marginTop: '9px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontWeight: 'bold', fontStyle: 'italic'}}>tracker.gg <span><BoxArrowUpRight /></span></div></a></Col></Row>                    
         </Card>
         </div>
     );
