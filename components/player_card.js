@@ -79,7 +79,7 @@ export function PlayerCard(props) {
                 <span>{props.player.stats.global.head_shots_pct}</span>
                 </div>            
             </Row>    
-            <Row><Col><a href={`https://tracker.gg/valorant/profile/riot/${props.player.current_nick}%23${props.player.current_tag}/overview`} target="_blank"><div style={{marginTop: '9px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontWeight: 'bold', fontStyle: 'italic'}}>tracker.gg <span><BoxArrowUpRight /></span></div></a></Col></Row>                    
+            <Row><Col><a href={`https://tracker.gg/valorant/profile/riot/${props.player.current_nick}%23${props.player.current_tag}/overview`} target="_blank" rel="noreferrer"><div style={{marginTop: '9px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontWeight: 'bold', fontStyle: 'italic'}}>tracker.gg <span><BoxArrowUpRight /></span></div></a></Col></Row>                    
         </Card>
         </div>
     );
