@@ -56,6 +56,7 @@ export function PlayerCard(props) {
       }, []); // <-- empty array means 'run once'
 
     return (        
+        <a href={`https://tracker.gg/valorant/profile/riot/${props.player.current_nick}%23${props.player.current_tag}/overview`} target="_blank" rel="noreferrer">
         <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>        
         <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "185px", width: "126px" }}>
             <Row>
@@ -79,8 +80,9 @@ export function PlayerCard(props) {
                 <span>{props.player.stats.global.head_shots_pct}</span>
                 </div>            
             </Row>    
-            <Row><Col><a href={`https://tracker.gg/valorant/profile/riot/${props.player.current_nick}%23${props.player.current_tag}/overview`} target="_blank" rel="noreferrer"><div style={{marginTop: '9px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontWeight: 'bold', fontStyle: 'italic'}}>tracker.gg <span><BoxArrowUpRight /></span></div></a></Col></Row>                    
+            <Row><div style={{marginTop: '2px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontStyle: 'italic'}}><b>MMR</b><span>{props.player.stats.player.mmr.toFixed(2)}</span></div></Row>            
         </Card>
         </div>
+        </a>
     );
 };
