@@ -58,7 +58,7 @@ export function PlayerCard(props) {
     return (        
         <a href={`https://tracker.gg/valorant/profile/riot/${props.player.current_nick}%23${props.player.current_tag}/overview`} target="_blank" rel="noreferrer">
         <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>        
-        <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "185px", width: "126px" }}>
+        <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "190px", width: "126px" }}>
             <Row>
             <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.9em'}}>{props.player.nick} </div>            
             </Row>            
@@ -80,7 +80,7 @@ export function PlayerCard(props) {
                 <span>{props.player.stats.global.head_shots_pct}</span>
                 </div>            
             </Row>    
-            <Row><div style={{marginTop: '2px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontStyle: 'italic'}}><b>MMR</b><span>{props.player.stats.player.mmr.toFixed(2)}</span></div></Row>            
+            <Row><div style={{marginTop: '2px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontStyle: 'italic'}}><b style={{marginTop: "5px"}}>MMR</b><Image src={`${cldbase}/ranks/rank_${Math.round(props.player.stats.player.mmr/100)}`} style={{width: "32px", height:"32px"}} fluid rounded/></div></Row>            
         </Card>
         </div>
         </a>
