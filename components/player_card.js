@@ -80,7 +80,7 @@ export function PlayerCard(props) {
                 <span>{props.player.stats.global.head_shots_pct}</span>
                 </div>            
             </Row>    
-            <Row><div style={{marginTop: '2px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontStyle: 'italic'}}><b style={{marginTop: "5px"}}>MMR</b><Image src={`${cldbase}/ranks/rank_${Math.round(props.player.stats.player.mmr/100)}`} style={{width: "32px", height:"32px"}} fluid rounded/></div></Row>            
+            <Row><div style={{marginTop: '2px', display:'flex', width: '100%', justifyContent: "space-around", fontSize: '0.8em', fontStyle: 'italic'}} title={props.player.stats.player.mmr.toFixed(2)}><b style={{marginTop: "5px"}}>MMR</b><Image src={`${cldbase}/ranks/rank_${Math.round(props.player.stats.player.mmr/100)}`} style={{width: "32px", height:"32px"}} fluid rounded/></div></Row>            
         </Card>
         </div>
         </a>
