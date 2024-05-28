@@ -67,6 +67,7 @@ export async function getAccountStats(from, to) {
       for (const item of players.data) {
         let entry = await axios.get(`${baseUrl}/account/${item.puuid}${composeDateQuery(from, to)}`)
         let stats = await axios.get(`${baseUrl}/account/${item.puuid}/stats${composeDateQuery(from, to)}`)
+        entry.data.plays = item.matches_played
         entry.data.stats = stats.data
         player_data.push(entry.data)
       }    
@@ -89,8 +90,9 @@ export async function getPlayerStats(from, to) {
       for (const item of data) {      
         let stats = await axios.get(`${baseUrl}/player/${item.name}/stats${composeDateQuery(from, to)}`)      
         stats.data.name = item.name
+        stats.data.plays = item.matches_played
         player_data.push(stats.data)
-      }
+      }      
       return player_data
     }
     catch (error) {

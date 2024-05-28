@@ -42,11 +42,11 @@ export default function Home(props) {
   let prvLink = <ArrowLeftSquare style={{marginLeft: "10px", marginRight: "10px", marginTop: "3px"}}>&lt;&lt;</ArrowLeftSquare>
   let nxtLink = <ArrowRightSquare  style={{marginLeft: "10px", marginRight: "10px", marginTop: "3px"}}>&gt;&gt;</ArrowRightSquare>
   if (props.prvMatchId) {
-    prvLink = <Link href={`/match/${props.prvMatchId}`} passHref><a><ArrowLeftSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px", marginTop: "3px"}}>&lt;&lt;</ArrowLeftSquare></a></Link>;
+    prvLink = <Link href={`/match/${props.prvMatchId}`} passHref><ArrowLeftSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px", marginTop: "3px"}}>&lt;&lt;</ArrowLeftSquare></Link>;
   }
 
   if (props.nxtMatchId) {
-    nxtLink = <Link href={`/match/${props.nxtMatchId}`} passHref><a><ArrowRightSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px", marginTop: "3px"}}>&gt;&gt;</ArrowRightSquare></a></Link>
+    nxtLink = <Link href={`/match/${props.nxtMatchId}`} passHref><ArrowRightSquare style={{cursor:'pointer', marginLeft: "10px", marginRight: "10px", marginTop: "3px"}}>&gt;&gt;</ArrowRightSquare></Link>
   }
 
   return (    

@@ -53,15 +53,15 @@ export function PlayerCard(props) {
         }        
         
         localStorage.setItem(props.player.nick, JSON.stringify(props.player))        
-      }, []); // <-- empty array means 'run once'
+      }, []); // <-- empty array means 'run once'            
 
     return (        
         <a href={`https://tracker.gg/valorant/profile/riot/${props.player.current_nick}%23${props.player.current_tag}/overview`} target="_blank" rel="noreferrer">
         <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center"}}>        
         <Card className='shadow' style={{ padding: '7px', marginTop: "20px", height: "180px", width: "126px" }}>
             <Row>
-            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.9em'}}>{props.player.nick} </div>            
-            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.7em'}}>({props.player.name}) </div>            
+            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.9em'}}>{props.player.nick}  </div>            
+            <div style={{display:'flex', width: '100%', alignItems:"center", justifyContent: "center", fontWeight: 'bolder', fontSize: '0.7em'}}>({props.player.name}) ({props.player.plays})</div>            
             </Row>            
             <Row>
                 <Col fluid>
